@@ -15,7 +15,10 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'webrat'
-  gem 'spork'
+  gem 'spork', '0.9.0.rc9'
+  gem 'autotest'
+  gem 'autotest-rails-pure'
+  gem 'autotest-growl'
 end
 
 # Gems used only for assets and not required
