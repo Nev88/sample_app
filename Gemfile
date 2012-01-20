@@ -7,6 +7,7 @@ gem 'rails', '3.1.1'
 
 gem 'sqlite3'
 gem 'pg'
+gem 'gravatar_image_tag'
 
 group :development do
   gem 'rspec-rails'
@@ -19,6 +20,7 @@ group :test do
   gem 'autotest'
   gem 'autotest-rails-pure'
   gem 'autotest-growl'
+  gem 'factory_girl_rails'
 end
 
 # Gems used only for assets and not required
