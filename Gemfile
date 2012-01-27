@@ -15,9 +15,9 @@ group :development do
   gem 'faker'
 end
 
-group :production do
- gem 'therubyracer-heroku'
-end
+#group :production do
+ #gem 'therubyracer-heroku'
+#end
 
 group :test do
   gem 'rspec-rails'
