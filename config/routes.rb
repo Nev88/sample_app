@@ -1,6 +1,10 @@
 SampleApp::Application.routes.draw do
   get "sessions/new"
-
+  #Вложенный маршрут users/:id/microposts
+  resources :users do
+    resources :microposts, :only => :index
+  end
+  
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy]

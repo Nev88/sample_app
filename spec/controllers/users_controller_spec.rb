@@ -24,6 +24,8 @@ describe UsersController do
         30.times do
           @users << Factory(:user, :email => Factory.next(:email))
         end
+        
+       
       end
 
       it "should be successful" do
@@ -146,6 +148,7 @@ describe UsersController do
 
     before(:each) do
       @user = Factory(:user)
+      
     end
 
     it "should be successful" do
@@ -179,6 +182,41 @@ describe UsersController do
       get :show, :id => @user
       response.should have_selector("span.content", :content => mp1.content)
       response.should have_selector("span.content", :content => mp2.content)
+    end
+   
+    it "should paginate microposts" do
+      35.times do
+         Factory(:micropost, :user => @user, :content => "Content")
+      end
+
+      get :show, :id => @user
+      response.should have_selector("div.pagination")
+      response.should have_selector("span.disabled", :content => "Previous")
+      response.should have_selector("a", :href => "/users/1?page=2",
+                                                            :content => "2")
+      response.should have_selector("a", :href => "/users/1?page=2",
+                                           :content => "Next")
+      end 
+      
+    describe "delete link" do
+      before(:each) do
+        test_sign_in(@user)
+        @another_user=Factory(:user, :email => "another_user@bk.ru")
+        Factory(:micropost, :user => @user, :content => "Foo bar")
+        Factory(:micropost, :user => @another_user, :content => "Baz quux")
+      end
+      
+      it "should have for self micropost" do 
+          get :show, :id => @user 
+          response.should have_selector("a", :href => "/microposts/1",
+                                     :title => "Foo bar", :content => "delete")
+      end
+      
+      it "should not have  for another user micropost" do 
+          get :show, :id => @another_user
+          response.should_not have_selector("a", :href => "/microposts/1",
+                                    :title => "Baz quux", :content => "delete")
+      end
     end
     
   end
