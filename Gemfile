@@ -15,9 +15,10 @@ group :development do
   gem 'faker'
 end
 
-#group :production do
- #gem 'therubyracer-heroku'
-#end
+
+group :production do
+  gem 'therubyracer-heroku', '~> 0.8.1.pre3', :platform => :ruby
+end
 
 group :test do
   gem 'rspec-rails'
