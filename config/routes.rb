@@ -3,11 +3,16 @@ SampleApp::Application.routes.draw do
   #Вложенный маршрут users/:id/microposts
   resources :users do
     resources :microposts, :only => :index
+    
+    member do
+      get :following, :followers
+    end
   end
   
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy]
+    resources :relationships, :only => [:create, :destroy]
 
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'
