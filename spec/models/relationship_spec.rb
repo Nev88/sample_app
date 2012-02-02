@@ -49,4 +49,15 @@ describe Relationship do
     end
   end
   
+  describe "dependent :destroy" do
+    before(:each) do
+      @relationship.save
+    end
+    it "should destroy associated relationship" do
+      @follower.destroy
+      Relationship.find_by_id(@relationship.id).should be_nil
+    end
+    
+  end
+  
 end
